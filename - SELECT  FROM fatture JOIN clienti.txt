@@ -12,3 +12,13 @@ WHERE EXTRACT(YEAR FROM anno_nascita) = 1982  ->nome e cognome dei clienti nati 
   in_produzione = true OR EXTRACT(YEAR FROM data_attivazione) = 2017 AND in_commercio = true
 4.1 SELECT * FROM prodotti WHERE EXTRACT(YEAR FROM data_attivazione) = 2017 AND
 (in_produzione = true OR in_commercio = true)  -> prodotti con l'anno di attivazione del 2017 in produzione oppure in commercio.
+
+5. SELECT fatture.* , clienti.*  FROM fatture JOIN clienti ON fatture.id_cliente = numero_cliente
+WHERE fatture.importo < 1000 - le fatture con importo inferiore a 1000 e I dati dei clienti collegati a quelle fatture
+
+6.SELECT fatture.nr_fattura, fatture.importo, fatture.iva, fatture.data_fattura, fornitori.nr_fornitore
+FROM fatture
+JOIN fornitori ON fatture.nr_fornitore = fornitori.nr_fornitore; -> l'elenco fatture con anche il numero del fornitore
+
+7.SELECT EXTRACT(YEAR FROM data_fattura) AS anno_fattura, count(*) AS nr_fattura_per_anno 
+FROM fatture WHERE iva = 20 GROUP BY anno_fattura  -> nr di fatture per ogni anno con l'iva al 20%.
