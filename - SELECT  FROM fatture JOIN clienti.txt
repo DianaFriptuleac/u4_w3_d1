@@ -1,24 +1,28 @@
-- SELECT * FROM fatture JOIN clienti ON fatture.id_cliente = numero_cliente --->> il Join per controllare se ho collegato bene l'id del cliente con le fatture.
+-SELECT * FROM fatture JOIN clienti ON fatture.id_cliente = numero_cliente --->> il Join per controllare se ho collegato bene l'id del cliente con le fatture.
 -SELECT * FROM fatture JOIN fornitori ON fatture.nr_fornitore = fornitori.nr_fornitore --->> Join per controllare il collegamento tra fatture e fornitori.
 
-1.SELECT * FROM clienti WHERE nome = 'Mario'  -> Selezionare tutti i clienti con il nome Mario.
+1.SELECT * FROM clienti WHERE nome = 'Mario'   --> Selezionare tutti i clienti con il nome Mario.
 
 2.SELECT nome, cognome FROM public.clienti
-WHERE EXTRACT(YEAR FROM anno_nascita) = 1982  ->nome e cognome dei clienti nati nel 1982.
+WHERE EXTRACT(YEAR FROM anno_nascita) = 1982   --> nome e cognome dei clienti nati nel 1982.
 
-3.SELECT nr_fattura FROM public.fatture WHERE iva = 20  -> Nr. fatture con iva al 20%.
+3.SELECT nr_fattura FROM public.fatture WHERE iva = 20   --> Nr. fatture con iva al 20%.
 
 4.0 SELECT * FROM prodotti WHERE EXTRACT(YEAR FROM data_attivazione) = 2017 AND
   in_produzione = true OR EXTRACT(YEAR FROM data_attivazione) = 2017 AND in_commercio = true
+
 4.1 SELECT * FROM prodotti WHERE EXTRACT(YEAR FROM data_attivazione) = 2017 AND
-(in_produzione = true OR in_commercio = true)  -> prodotti con l'anno di attivazione del 2017 in produzione oppure in commercio.
+(in_produzione = true OR in_commercio = true)  --> prodotti con l'anno di attivazione del 2017 in produzione oppure in commercio.
 
 5. SELECT fatture.* , clienti.*  FROM fatture JOIN clienti ON fatture.id_cliente = numero_cliente
-WHERE fatture.importo < 1000 - le fatture con importo inferiore a 1000 e I dati dei clienti collegati a quelle fatture
+WHERE fatture.importo < 1000   --> le fatture con importo inferiore a 1000 e I dati dei clienti collegati a quelle fatture
 
 6.SELECT fatture.nr_fattura, fatture.importo, fatture.iva, fatture.data_fattura, fornitori.nr_fornitore
 FROM fatture
-JOIN fornitori ON fatture.nr_fornitore = fornitori.nr_fornitore; -> l'elenco fatture con anche il numero del fornitore
+JOIN fornitori ON fatture.nr_fornitore = fornitori.nr_fornitore   --> l'elenco fatture con anche il numero del fornitore
 
 7.SELECT EXTRACT(YEAR FROM data_fattura) AS anno_fattura, count(*) AS nr_fattura_per_anno 
-FROM fatture WHERE iva = 20 GROUP BY anno_fattura  -> nr di fatture per ogni anno con l'iva al 20%.
+FROM fatture WHERE iva = 20 GROUP BY anno_fattura   --> nr di fatture per ogni anno con l'iva al 20%.
+
+8.SELECT EXTRACT(YEAR FROM data_fattura) AS anno_fattura, count(*) AS nr_fatture, SUM(importo)
+AS somma FROM fatture GROUP BY anno_fattura ORDER BY anno_fattura   --> Il numero di fatture e la somma dei relativi importi divisi per anno di fatturazione e anche ordinati.
